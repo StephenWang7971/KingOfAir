@@ -46,8 +46,12 @@ public class GameEvent {
 	public static final int REMOVE_THUNDER_STORM = 0x0057;
 
 	public static final int START_GAME = 0x0091;
+	public static final int GO_HOME = 0x0092;
+	public static final int CLEAR_STAGE = 0x0093;
+	public static final int FORCE_MOVE = 0x0094;
 	public static final int GAME_OVER = 0x0099;
 
 	public static final int SHOW_MENU = 0x00A0;
+	public static final int SHOW_SCORE_PANEL = 0x00A1;
 
 }

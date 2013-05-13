@@ -2,6 +2,7 @@ package com.octrois.koa.model.state;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
@@ -21,6 +22,11 @@ public class HelpPanel implements Game.State {
 	@Override
 	public void render(Canvas canvas) {
 		StateFlyweight.MAIN_SCREEN.render(canvas);
+
+		Paint text = new Paint();
+		text.setARGB(255, 255, 255, 255);
+		canvas.drawText("Control aircraft with arrow steer.", 105, 105, text);
+		canvas.drawText("Destroy enemies.", 105, 120, text);
 
 		BitmapFlyweight bf = BitmapFlyweight.getInstance();
 		Bitmap helpBackground = bf.getBitmap("help_background");

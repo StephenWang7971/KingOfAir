@@ -6,11 +6,14 @@ import android.graphics.Paint;
 
 import com.octrois.koa.model.Game;
 import com.octrois.koa.model.direction.Direction;
+import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.model.role.Role;
 import com.octrois.koa.model.weapon.friend.HeroWeapon;
 import com.octrois.koa.util.BitmapFlyweight;
 
 public class Hero extends Role {
+
+	public boolean forceMove = false;
 
 	public Hero() {
 		Game game = Game.getInstance();
@@ -29,26 +32,41 @@ public class Hero extends Role {
 	@Override
 	public void move(Direction dir) {
 		Game game = Game.getInstance();
+		boolean xMove = true;
+		boolean yMove = true;
 		if (x >= game.mCanvasWidth - width + 20 && dir.getDiffX() > 0) {
-			return;
+			xMove = false;
 		}
 		if (x <= -20 && dir.getDiffX() < 0) {
-			return;
+			xMove = false;
 		}
-		if (y <= 0 && dir.getDiffY() < 0) {
-			return;
+		if (y <= 0 && dir.getDiffY() < 0 && !forceMove) {
+			yMove = false;
+		}
+
+		if (y <= -80 && forceMove) {
+			yMove = false;
+			game.sendEvent(new GameEvent(GameEvent.SHOW_SCORE_PANEL));
 		}
 		if (y >= game.mCanvasHeight - height && dir.getDiffY() > 0) {
-			return;
+			yMove = false;
 		}
-		x += dir.getDiffX() * 10;
-		y += dir.getDiffY() * 10;
+		if (xMove) {
+			x += dir.getDiffX() * 10;
+		}
+		if (yMove) {
+			y += dir.getDiffY() * 10;
+		}
 	}
 
 	@Override
 	public void render(Canvas canvas) {
 		BitmapFlyweight bf = BitmapFlyweight.getInstance();
 		canvas.drawBitmap(bf.getBitmap("hero"), x, getTop(), null);
+
+		if (forceMove) {
+			// TODO show a longer fire.
+		}
 
 		if (isExploded()) {
 		}
@@ -65,6 +83,9 @@ public class Hero extends Role {
 	}
 
 	public void fire() {
+		if (forceMove) {
+			return;
+		}
 		long tick = System.currentTimeMillis();
 		if (tick - lastFire > (2000 - weaponSpeed)) {
 			weapon.fire();
@@ -75,5 +96,4 @@ public class Hero extends Role {
 	public void explode() {
 		life = EXPLODED;
 	}
-
 }

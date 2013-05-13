@@ -37,6 +37,8 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	public List<Enemy> enemies = new ArrayList<Enemy>();
 	public List<Bullet> bullets = new ArrayList<Bullet>();
 	public List<MagicWeapon> magicWeapons = new ArrayList<MagicWeapon>();
+	public List<Box> boxes = new ArrayList<Box>();
+	public List<Coin> coins = new ArrayList<Coin>();
 
 	public Score score = new Score();
 	public Scene scene;
@@ -47,19 +49,16 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	private JetPlayer mJet;
 	private boolean muteMask[][] = new boolean[9][32];
 
-	State state;
+	public State state;
 	public int mCanvasWidth;
 	public int mCanvasHeight;
 	private List<GameEvent> mEventQueue = new ArrayList<GameEvent>();
 	private List<GameEvent> mPreEventQueue = new ArrayList<GameEvent>();
 
-	public List<Box> boxes = new ArrayList<Box>();
-	public List<Coin> coins = new ArrayList<Coin>();
-
 	public boolean soundOn = true;
 	public boolean musicOn = false;
 	public Boss boss;
-	public boolean paused;
+	private boolean visible = true;
 	private static Game instance = null;
 
 	private Game() {
@@ -142,11 +141,6 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	}
 
 	public void play() {
-		enemies.clear();
-		friends.clear();
-		bullets.clear();
-		boxes.clear();
-		coins.clear();
 		boss = null;
 		state.fadeOut();
 		state = StateFlyweight.PLAYING;
@@ -229,14 +223,14 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	}
 
 	public void muteMusic() {
-		musicOn = !musicOn;
 		if (mJet != null) {
-			if (musicOn) {
+			if (!musicOn) { // TODO detect old, a bit harder..
 				playMusic();
 			} else {
 				pauseMusic();
 			}
 		}
+		musicOn = !musicOn;
 	}
 
 	public void showHelp() {
@@ -247,8 +241,6 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 		if (state == StateFlyweight.PLAYING) {
 			state = StateFlyweight.MENU_PANEL;
 		}
-		paused = true;
-		// TODO if it is in Main Screen, it also need to pause.
 	}
 
 	public void resume() {
@@ -263,7 +255,6 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 				friend.lastFire = System.currentTimeMillis();
 			}
 		}
-		paused = false;
 	}
 
 	public void showSetting() {
@@ -283,14 +274,7 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 		return state == StateFlyweight.PLAYING;
 	}
 
-	public boolean isStagePass() {
-		if (boss != null) {
-			return boss.isExploded();
-		}
-		return false;
-	}
-
-	public void showScorePanel() {
+	public void showScorePanel(boolean stageCleared) {
 		state = StateFlyweight.SCORE_PANEL;
 	}
 
@@ -325,7 +309,7 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	}
 
 	public void pauseMusic() {
-		if (mJet != null && musicOn) {
+		if (mJet != null && !musicOn) {
 			mJet.pause();
 		}
 	}
@@ -363,20 +347,23 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 
 	public void clear() {
 		hero = new Hero();
+		friends.clear();
 		enemies.clear();
 		bullets.clear();
 		magicWeapons.clear();
 		StateFlyweight.PLAYING.clear();
 	}
 
-	public void stop() {
-		// TODO Auto-generated method stub
-
+	public void hide() {
+		visible = false;
 	}
 
-	public void save() {
-		// TODO Auto-generated method stub
+	public void show() {
+		visible = true;
+	}
 
+	public boolean isVisible() {
+		return visible;
 	}
 
 }

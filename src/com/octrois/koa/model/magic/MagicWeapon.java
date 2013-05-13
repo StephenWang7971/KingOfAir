@@ -40,28 +40,6 @@ public class MagicWeapon extends Bullet {
 				}
 			}
 		}
-		// for (Enemy enemy : game.enemies) {
-		// if (MathUtil.isConflicted(getRect(), enemy.getRect())) {
-		// game.sendEvent(new GameEvent(GameEvent.ATTACK_ENEMY, enemy,
-		// this));
-		// }
-		// }
-		// for (Box box : game.boxes) {
-		// if (MathUtil.isConflicted(getRect(), box.getRect())) {
-		// game.sendEvent(new GameEvent(GameEvent.EXPLODE_BOX, box, this));
-		// }
-		// }
-		//
-		// if (game.boss != null) {
-		// for (Carrier carrier : game.boss.carriers) {
-		// if (carrier.attackable) {
-		// if (MathUtil.isConflicted(getRect(),
-		// carrier.getAttackableRect())) {
-		// game.sendEvent(new GameEvent(GameEvent.ATTACK_BOSS,
-		// carrier, this));
-		// }
-		// }
-		// }
-		// }
+
 	}
 }

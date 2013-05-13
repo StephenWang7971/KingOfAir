@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.graphics.Canvas;
 
+import com.octrois.koa.model.Game;
 import com.octrois.koa.model.direction.Direction;
+import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.model.role.Role;
 
 public abstract class Boss extends Role {
@@ -18,6 +20,12 @@ public abstract class Boss extends Role {
 		this.y += dir.getDiffY();
 		for (Carrier carrier : carriers) {
 			carrier.move(dir);
+		}
+		if (!isLiving()) {
+			life++;
+		}
+		if (isExploded()) {
+			Game.getInstance().sendEvent(new GameEvent(GameEvent.CLEAR_STAGE));
 		}
 	}
 
@@ -36,12 +44,16 @@ public abstract class Boss extends Role {
 
 	}
 
-	public boolean isExploded() {
+	public boolean hasForce() {
 		for (Carrier c : carriers) {
-			if (!c.isExploded() && c.attackable) {
-				return false;
+			if (c.isLiving() && c.attackable) {
+				return true;
 			}
 		}
-		return true;
+		return false;
+	}
+
+	public void explode() {
+		life = EXPLODING_1;
 	}
 }

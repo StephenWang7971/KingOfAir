@@ -12,12 +12,12 @@ public class AtomBomb extends MagicWeapon {
 			"atom_bomb_8", "atom_bomb_9", "atom_bomb_10" };
 
 	public AtomBomb(int x, int y) {
-		picKey = "atom_bomb"; // TODO animation for explosion
+		picKey = "atom_bomb";
 		width = 10;
 		height = 10;
 		this.x = x;
 		this.y = y;
-		power = 4000;
+		power = 30;
 		dir = Direction.NONE;
 		count = 0;
 		friend = true;

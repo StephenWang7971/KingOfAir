@@ -11,17 +11,17 @@ import com.octrois.koa.util.BitmapFlyweight;
 import com.octrois.koa.util.MathUtil;
 
 public class MenuPanel implements Game.State {
-	private RectF homeRect;
-	private RectF closeRect;
-	private RectF musicRect;
-	private RectF soundRect;
+	private RectF homeRect = new RectF(150, 380, 350, 430);
+	private RectF closeRect = new RectF(150, 460, 350, 510);
+	private RectF musicRect = new RectF(150, 300, 190, 340);
+	private RectF soundRect = new RectF(240, 300, 280, 340);
 
 	@Override
 	public void update() {
-		musicRect = new RectF(150, 300, 190, 340);
-		soundRect = new RectF(240, 300, 280, 340);
-		homeRect = new RectF(150, 380, 350, 430);
-		closeRect = new RectF(150, 460, 350, 510);
+		// musicRect
+		// soundRect
+		// homeRect
+		// closeRect
 	}
 
 	@Override
@@ -66,8 +66,7 @@ public class MenuPanel implements Game.State {
 				game.resume();
 			}
 			if (MathUtil.inside(event.getX(), event.getY(), homeRect)) {
-				game.clear();
-				game.restart();
+				game.sendEvent(new GameEvent(GameEvent.GO_HOME));
 			}
 			if (MathUtil.inside(event.getX(), event.getY(), musicRect)) {
 				game.muteMusic();
@@ -85,7 +84,13 @@ public class MenuPanel implements Game.State {
 
 	@Override
 	public void onGameEvent(GameEvent event) {
-
+		Game game = Game.getInstance();
+		switch (event.eventCode) {
+		case GameEvent.GO_HOME:
+			game.clear();
+			game.restart();
+			break;
+		}
 	}
 
 	@Override

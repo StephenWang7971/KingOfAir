@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 		Game game = Game.getInstance();
 		System.out.println("onPause");
 		game.pause();
+		game.hide();
 		game.pauseMusic();
 		super.onPause();
 	}
@@ -35,6 +36,7 @@ public class MainActivity extends Activity {
 	public void onResume() {
 		Game game = Game.getInstance();
 		System.out.println("onResume");
+		game.show();
 		game.resume();
 		if (game.musicOn) {
 			game.playMusic();

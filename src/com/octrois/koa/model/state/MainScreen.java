@@ -12,7 +12,6 @@ import com.octrois.koa.model.bullet.Bullet;
 import com.octrois.koa.model.direction.Direction;
 import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.model.role.enemy.Enemy;
-import com.octrois.koa.model.role.enemy.MediumTank;
 import com.octrois.koa.model.role.friend.Hero;
 import com.octrois.koa.util.BitmapFlyweight;
 import com.octrois.koa.util.MathUtil;
@@ -24,6 +23,7 @@ public class MainScreen implements Game.State {
 	RectF soundRect = new RectF(380, 20, 430, 70);
 	RectF settingRect = new RectF(100, 20, 150, 70);
 	RectF startRect = new RectF(120, 300, 340, 400);
+	RectF continueRect = new RectF(120, 450, 340, 550);
 	RectF achieveRect = new RectF(400, 700, 450, 750);
 	RectF shopRect = new RectF(100, 700, 380, 750);
 	RectF helpRect = new RectF(30, 20, 80, 70);
@@ -37,11 +37,28 @@ public class MainScreen implements Game.State {
 		Game game = Game.getInstance();
 		backgroundRect.right = game.mCanvasWidth;
 		backgroundRect.bottom = game.mCanvasHeight;
+
+		startRect.left = game.mCanvasWidth / 2 - 110;
+		startRect.right = startRect.left + 220;
+
+		game.hero.x = game.mCanvasWidth - 200;
+		game.hero.y = game.mCanvasHeight - 300; // TODO screen size.
+
+		int count = (game.mCanvasWidth - 40) / 80;
+
+		// FIXME cause a bug if in playing mode when return again (tanks are
+		// appended).
+		// game.enemies.clear();
+		// for (int i = 0; i < count; i++) {
+		// MediumTank tank = new MediumTank();
+		// tank.x = 80 * i + 20;
+		// tank.y = 130;
+		// game.enemies.add(tank);
+		// }
 	}
 
 	@Override
 	public void render(Canvas canvas) {
-
 		Paint button = new Paint();
 		button.setStyle(Style.FILL);
 		button.setARGB(255, 10, 220, 10);
@@ -75,6 +92,8 @@ public class MainScreen implements Game.State {
 			canvas.drawBitmap(soundOff, soundRect.left, soundRect.top, null);
 		}
 
+		// TODO show the name of 'King of Air'
+
 		// Bitmap settings = bf.getBitmap("settings");
 		// canvas.drawBitmap(settings, settingRect.left, settingRect.top,
 		// null);
@@ -82,6 +101,8 @@ public class MainScreen implements Game.State {
 		if (game.loaded) {
 			Bitmap start = bf.getBitmap("start_button");
 			canvas.drawBitmap(start, startRect.left, startRect.top, null);
+
+			// TODO show continue button.
 		}
 
 		Bitmap help = bf.getBitmap("help");
@@ -180,6 +201,10 @@ public class MainScreen implements Game.State {
 			break;
 		case GameEvent.STOP_MOVING:
 			break;
+		case GameEvent.GO_HOME:
+			game.clear();
+			game.restart();
+			break;
 		case GameEvent.START_GAME:
 			game.clear();
 			game.play();
@@ -218,14 +243,6 @@ public class MainScreen implements Game.State {
 	public MainScreen() {
 		Game game = Game.getInstance();
 		game.hero = new Hero();
-		game.hero.x = 200;
-		game.hero.y = 600;
 
-		for (int i = 0; i < 5; i++) {
-			MediumTank tank = new MediumTank();
-			tank.x = 80 * i + 30;
-			tank.y = 100;
-			game.enemies.add(tank);
-		}
 	}
 }

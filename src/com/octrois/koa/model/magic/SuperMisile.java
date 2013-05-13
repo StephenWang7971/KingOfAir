@@ -10,7 +10,7 @@ public class SuperMisile extends MagicWeapon {
 		height = 150;
 		this.x = x;
 		this.y = y;
-		power = 1000;
+		power = 20;
 		dir = new Direction(0, -15);
 		friend = true;
 	}

@@ -12,14 +12,14 @@ import com.octrois.koa.util.MathUtil;
 
 public class ScorePanel implements Game.State {
 
-	private RectF backRect;
+	private RectF homeRect;
 	private RectF nextStageRect;
 	private RectF retryRect;
 	private RectF skillsRect;
 
 	@Override
 	public void update() {
-		backRect = new RectF(160, 400, 320, 430);
+		homeRect = new RectF(160, 400, 320, 430);
 		nextStageRect = new RectF(160, 460, 320, 590);
 		retryRect = new RectF(160, 520, 320, 550);
 		skillsRect = new RectF(160, 580, 320, 610);
@@ -38,7 +38,7 @@ public class ScorePanel implements Game.State {
 		Bitmap retry = bf.getBitmap("retry_button");
 		// Bitmap skills = bf.getBitmap("skills_button");
 
-		canvas.drawBitmap(back, backRect.left, backRect.top, null);
+		canvas.drawBitmap(back, homeRect.left, homeRect.top, null);
 		// canvas.drawBitmap(nextStage, nextStageRect.left, nextStageRect.top,
 		// null);
 		canvas.drawBitmap(retry, retryRect.left, retryRect.top, null);
@@ -50,14 +50,12 @@ public class ScorePanel implements Game.State {
 	public void onTouch(MotionEvent event) {
 		Game game = Game.getInstance();
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			if (MathUtil.inside(event.getX(), event.getY(), backRect)) {
-				game.clear();
-				game.restart();
+			if (MathUtil.inside(event.getX(), event.getY(), homeRect)) {
+				game.sendEvent(new GameEvent(GameEvent.GO_HOME));
 			}
 
 			if (MathUtil.inside(event.getX(), event.getY(), retryRect)) {
-				game.clear();
-				game.play();
+				game.sendEvent(new GameEvent(GameEvent.START_GAME));
 			}
 
 			if (MathUtil.inside(event.getX(), event.getY(), skillsRect)) {
@@ -72,11 +70,22 @@ public class ScorePanel implements Game.State {
 
 	@Override
 	public void worldEvent() {
-
+		System.out.println("score panel.world event");
 	}
 
 	@Override
 	public void onGameEvent(GameEvent event) {
+		Game game = Game.getInstance();
+		switch (event.eventCode) {
+		case GameEvent.GO_HOME:
+			game.clear();
+			game.restart();
+			break;
+		case GameEvent.START_GAME:
+			game.clear();
+			game.play();
+			break;
+		}
 
 	}
 

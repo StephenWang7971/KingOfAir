@@ -2,6 +2,7 @@ package com.octrois.koa.model.state;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
@@ -51,6 +52,7 @@ public class Playing implements Game.State {
 	private boolean moving = false;
 
 	private int count = 0;
+	private boolean controllable = true;
 
 	@Override
 	public void update() {
@@ -64,6 +66,55 @@ public class Playing implements Game.State {
 		menuRect.right = menuRect.left + 50;
 		menuRect.bottom = menuRect.top + 50;
 
+		misileRect.left = game.mCanvasWidth - 80;
+		misileRect.right = misileRect.left + 80;
+		misileRect.top = game.mCanvasHeight - 300;
+		misileRect.bottom = misileRect.top + 60;
+
+		atomRect.left = misileRect.left;
+		atomRect.right = misileRect.right;
+		atomRect.top = misileRect.top + 100;
+		atomRect.bottom = atomRect.top + 60;
+
+		leftRect.top = game.mCanvasHeight - 2 * 75;
+		leftRect.bottom = leftRect.top + 75;
+		leftRect.left = 0;
+		leftRect.right = 75;
+
+		rightRect.top = leftRect.top;
+		rightRect.bottom = leftRect.bottom;
+		rightRect.left = leftRect.right + 75;
+		rightRect.right = rightRect.left + 75;
+
+		upRect.top = game.mCanvasHeight - 3 * 75;
+		upRect.bottom = upRect.top + 75;
+		upRect.left = 75;
+		upRect.right = upRect.left + 75;
+
+		downRect.top = game.mCanvasHeight - 75;
+		downRect.bottom = game.mCanvasHeight;
+		downRect.left = 75;
+		downRect.right = downRect.left + 75;
+
+		leftUpRect.top = upRect.top;
+		leftUpRect.bottom = leftUpRect.top + 75;
+		leftUpRect.left = leftRect.left;
+		leftUpRect.right = leftUpRect.left + 75;
+
+		rightUpRect.top = upRect.top;
+		rightUpRect.bottom = rightUpRect.top + 75;
+		rightUpRect.left = rightRect.left;
+		rightUpRect.right = rightUpRect.left + 75;
+
+		leftDownRect.top = downRect.top;
+		leftDownRect.bottom = leftDownRect.top + 75;
+		leftDownRect.left = leftRect.left;
+		leftDownRect.right = leftDownRect.left + 75;
+
+		rightDownRect.top = downRect.top;
+		rightDownRect.bottom = rightDownRect.top + 75;
+		rightDownRect.left = rightRect.left;
+		rightDownRect.right = rightDownRect.left + 75;
 	}
 
 	@Override
@@ -121,66 +172,50 @@ public class Playing implements Game.State {
 	}
 
 	private void drawButtons(Canvas canvas) {
-		BitmapFlyweight bf = BitmapFlyweight.getInstance();
+		Paint pressed = new Paint();
+		pressed.setARGB(255, 0, 128, 0);
+
+		Paint normal = new Paint();
+		normal.setARGB(128, 0, 255, 0);
 		if (leftPressed) {
-			Bitmap left = bf.getBitmap("left_pressed");
-			canvas.drawBitmap(left, leftRect.left, leftRect.top, null);
+			canvas.drawRect(leftRect, pressed);
 		} else {
-			Bitmap left = bf.getBitmap("left");
-			canvas.drawBitmap(left, leftRect.left, leftRect.top, null);
+			canvas.drawRect(leftRect, normal);
 		}
 		if (rightPressed) {
-			Bitmap right = bf.getBitmap("right_pressed");
-			canvas.drawBitmap(right, rightRect.left, rightRect.top, null);
+			canvas.drawRect(rightRect, pressed);
 		} else {
-			Bitmap right = bf.getBitmap("right");
-			canvas.drawBitmap(right, rightRect.left, rightRect.top, null);
+			canvas.drawRect(rightRect, normal);
 		}
 		if (upPressed) {
-			Bitmap up = bf.getBitmap("up_pressed");
-			canvas.drawBitmap(up, upRect.left, upRect.top, null);
+			canvas.drawRect(upRect, pressed);
 		} else {
-			Bitmap up = bf.getBitmap("up");
-			canvas.drawBitmap(up, upRect.left, upRect.top, null);
+			canvas.drawRect(upRect, normal);
 		}
 		if (downPressed) {
-			Bitmap down = bf.getBitmap("down_pressed");
-			canvas.drawBitmap(down, downRect.left, downRect.top, null);
+			canvas.drawRect(downRect, pressed);
 		} else {
-			Bitmap down = bf.getBitmap("down");
-			canvas.drawBitmap(down, downRect.left, downRect.top, null);
+			canvas.drawRect(downRect, normal);
 		}
 		if (leftUpPressed) {
-			Bitmap leftUp = bf.getBitmap("left_up_pressed");
-			canvas.drawBitmap(leftUp, leftUpRect.left, leftUpRect.top, null);
+			canvas.drawRect(leftUpRect, pressed);
 		} else {
-			Bitmap leftUp = bf.getBitmap("left_up");
-			canvas.drawBitmap(leftUp, leftUpRect.left, leftUpRect.top, null);
+			canvas.drawRect(leftUpRect, normal);
 		}
 		if (rightUpPressed) {
-			Bitmap rightUp = bf.getBitmap("right_up_pressed");
-			canvas.drawBitmap(rightUp, rightUpRect.left, rightUpRect.top, null);
+			canvas.drawRect(rightUpRect, pressed);
 		} else {
-			Bitmap rightUp = bf.getBitmap("right_up");
-			canvas.drawBitmap(rightUp, rightUpRect.left, rightUpRect.top, null);
+			canvas.drawRect(rightUpRect, normal);
 		}
 		if (leftDownPressed) {
-			Bitmap leftDown = bf.getBitmap("left_down_pressed");
-			canvas.drawBitmap(leftDown, leftDownRect.left, leftDownRect.top,
-					null);
+			canvas.drawRect(leftDownRect, pressed);
 		} else {
-			Bitmap leftDown = bf.getBitmap("left_down");
-			canvas.drawBitmap(leftDown, leftDownRect.left, leftDownRect.top,
-					null);
+			canvas.drawRect(leftDownRect, normal);
 		}
 		if (rightDownPressed) {
-			Bitmap rightDown = bf.getBitmap("right_down_pressed");
-			canvas.drawBitmap(rightDown, rightDownRect.left, rightDownRect.top,
-					null);
+			canvas.drawRect(rightDownRect, pressed);
 		} else {
-			Bitmap rightDown = bf.getBitmap("right_down");
-			canvas.drawBitmap(rightDown, rightDownRect.left, rightDownRect.top,
-					null);
+			canvas.drawRect(rightDownRect, normal);
 		}
 	}
 
@@ -232,52 +267,59 @@ public class Playing implements Game.State {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			clear();
 		} else {
-			if (MathUtil.inside(event.getX(), event.getY(), leftRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.WEST));
-				clearDirs();
-				leftPressed = true;
-			} else if (MathUtil.inside(event.getX(), event.getY(), rightRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.EAST));
-				clearDirs();
-				rightPressed = true;
-			} else if (MathUtil.inside(event.getX(), event.getY(), upRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.NORTH));
-				clearDirs();
-				upPressed = true;
-			} else if (MathUtil.inside(event.getX(), event.getY(), downRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.SOUTH));
-				clearDirs();
-				downPressed = true;
-			} else if (MathUtil.inside(event.getX(), event.getY(), leftUpRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.NORTH_WEST));
-				clearDirs();
-				leftUpPressed = true;
-			} else if (MathUtil.inside(event.getX(), event.getY(), rightUpRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.NORTH_EAST));
-				clearDirs();
-				rightUpPressed = true;
-			} else if (MathUtil
-					.inside(event.getX(), event.getY(), leftDownRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.SOUTH_WEST));
-				clearDirs();
-				leftDownPressed = true;
-			} else if (MathUtil.inside(event.getX(), event.getY(),
-					rightDownRect)) {
-				game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
-						Direction.SOUTH_EAST));
-				clearDirs();
-				rightDownPressed = true;
+			if (controllable) {
+				if (MathUtil.inside(event.getX(), event.getY(), leftRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.WEST));
+					clearDirs();
+					leftPressed = true;
+				} else if (MathUtil.inside(event.getX(), event.getY(),
+						rightRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.EAST));
+					clearDirs();
+					rightPressed = true;
+				} else if (MathUtil.inside(event.getX(), event.getY(), upRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.NORTH));
+					clearDirs();
+					upPressed = true;
+				} else if (MathUtil
+						.inside(event.getX(), event.getY(), downRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.SOUTH));
+					clearDirs();
+					downPressed = true;
+				} else if (MathUtil.inside(event.getX(), event.getY(),
+						leftUpRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.NORTH_WEST));
+					clearDirs();
+					leftUpPressed = true;
+				} else if (MathUtil.inside(event.getX(), event.getY(),
+						rightUpRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.NORTH_EAST));
+					clearDirs();
+					rightUpPressed = true;
+				} else if (MathUtil.inside(event.getX(), event.getY(),
+						leftDownRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.SOUTH_WEST));
+					clearDirs();
+					leftDownPressed = true;
+				} else if (MathUtil.inside(event.getX(), event.getY(),
+						rightDownRect)) {
+					game.sendEvent(new GameEvent(GameEvent.KEEP_MOVING,
+							Direction.SOUTH_EAST));
+					clearDirs();
+					rightDownPressed = true;
+				} else {
+					clear();
+				}
 			} else {
 				clear();
 			}
-
 			if (MathUtil.inside(event.getX(), event.getY(), menuRect)) {
 				game.sendEvent(new GameEvent(GameEvent.SHOW_MENU));
 			} else if (MathUtil.inside(event.getX(), event.getY(), misileRect)) {
@@ -290,6 +332,7 @@ public class Playing implements Game.State {
 
 	@Override
 	public void worldEvent() {
+		// System.out.println("world event");
 		Game game = Game.getInstance();
 		if (game.hero == null) {
 			return;
@@ -341,11 +384,6 @@ public class Playing implements Game.State {
 			bullet.move(bullet.dir);
 		}
 
-		if (game.isStagePass()) {
-			// TODO show ... pass animation.
-			game.showScorePanel();
-		}
-
 		pickCoins();
 		rescueFriends();
 		// TODO remove immovable friends
@@ -365,6 +403,7 @@ public class Playing implements Game.State {
 	}
 
 	private void stopMoving() {
+		System.out.println("stopMoving");
 		movingDir = null;
 		moving = false;
 	}
@@ -415,6 +454,10 @@ public class Playing implements Game.State {
 			carrier.health -= bullet.power;
 			if (carrier.health <= 0 && carrier.isLiving()) {
 				carrier.explode();
+			}
+
+			if (!game.boss.hasForce()) {
+				game.boss.explode();
 			}
 			break;
 		case GameEvent.ATTACK_HERO:
@@ -498,6 +541,23 @@ public class Playing implements Game.State {
 		case GameEvent.REMOVE_ATOM:
 			AtomBomb atom = (AtomBomb) event.param[0];
 			game.removeAtom(atom);
+			break;
+		case GameEvent.CLEAR_STAGE:
+			controllable = false;
+			game.clear();
+			game.sendEventDelayed(new GameEvent(GameEvent.FORCE_MOVE));
+			break;
+		case GameEvent.FORCE_MOVE:
+			moving = true;
+			movingDir = new Direction(0, -10);
+			game.hero.forceMove = true;
+			break;
+		case GameEvent.SHOW_SCORE_PANEL:
+			System.out.println("SHOW_SCORE_PANEL");
+			moving = false;
+			movingDir = Direction.NONE;
+			game.hero.forceMove = false;
+			game.showScorePanel(true);
 			break;
 		}
 	}

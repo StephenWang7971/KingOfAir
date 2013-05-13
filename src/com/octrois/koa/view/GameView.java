@@ -44,6 +44,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
+		// FIXME move to MainActivity.onDestroy().
 		// boolean retry = true;
 		// while (retry) {
 		// try {
@@ -85,7 +86,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			Game game = Game.getInstance();
 			while (running) {
 
-				if (game.paused) {
+				if (!game.isVisible()) {
 					continue;
 				}
 				Canvas canvas = null;
@@ -93,8 +94,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 					canvas = mSurfaceHolder.lockCanvas(null);
 					if (canvas != null) {
 						doDraw(canvas);
-					} else {
-						System.out.println("canvas =" + canvas);
 					}
 					game.worldEvent();
 				} finally {
