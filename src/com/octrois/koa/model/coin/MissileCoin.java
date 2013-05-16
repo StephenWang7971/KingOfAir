@@ -1,10 +1,10 @@
 package com.octrois.koa.model.coin;
 
-public class MisileCoin extends Coin {
-	public MisileCoin() {
+public class MissileCoin extends Coin {
+	public MissileCoin() {
 		width = 30;
 		height = 30;
-		picKey = "misile_coin";
+		picKey = "missile_coin";
 		volume = 1;
 		type = HEALTH;
 	}

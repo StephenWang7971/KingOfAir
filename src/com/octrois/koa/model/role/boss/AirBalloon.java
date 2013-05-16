@@ -1,6 +1,6 @@
 package com.octrois.koa.model.role.boss;
 
-public class AirBallon extends Boss {
+public class AirBalloon extends Boss {
 
 	@Override
 	public void fire() {

@@ -1,8 +1,8 @@
 package com.octrois.koa.model.role.enemy;
 
-public class FasterMisile extends Enemy {
+public class FasterMissile extends Enemy {
 
-	public FasterMisile() {
+	public FasterMissile() {
 		health = 60;
 		power = 30;
 		weaponSpeed = -5;

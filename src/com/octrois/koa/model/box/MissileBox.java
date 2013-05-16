@@ -4,9 +4,9 @@ import com.octrois.koa.model.Game;
 import com.octrois.koa.model.coin.Coin;
 import com.octrois.koa.model.coin.MisileCoin;
 
-public class MisileBox extends Box {
+public class MissileBox extends Box {
 
-	public MisileBox() {
+	public MissileBox() {
 		width = 60;
 		height = 40;
 		picKey = "misile_box";
