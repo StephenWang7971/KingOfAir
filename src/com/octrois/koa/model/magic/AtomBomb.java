@@ -18,14 +18,13 @@ public class AtomBomb extends MagicWeapon {
 		this.x = x;
 		this.y = y;
 		power = 30;
-		dir = Direction.NONE;
 		count = 0;
 		friend = true;
+		route.add(10, 0, 0);
 	}
 
 	@Override
-	public void move() {
-		// Enlarge size;
+	public void move(Direction dir) {
 		count++;
 		Game game = Game.getInstance();
 		if (count == 10) {

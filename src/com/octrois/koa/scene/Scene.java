@@ -74,7 +74,7 @@ public class Scene {
 		}
 
 		String[] boxColors = new String[] { "Silver", "Silver", "Gold",
-				"Health", "Misile" };
+				"Health", "Missile" };
 		for (int i = 0; i < boxColors.length; i++) {
 			Box box = BoxFactory.createBox(boxColors[i]);
 			box.x = (100 * i) / Game.getInstance().mCanvasWidth;

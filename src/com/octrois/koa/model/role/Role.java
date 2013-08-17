@@ -29,7 +29,7 @@ public abstract class Role implements Movable {
 	protected static final int EXPLODING_1 = 1;
 	protected static final int EXPLODING_2 = 2;
 	protected static final int EXPLODING_3 = 3;
-	protected static final int EXPLOING_4 = 4;
+	protected static final int EXPLODING_4 = 4;
 	protected static final int EXPLODED = 5;
 	protected static final int VANISHED = 6;
 

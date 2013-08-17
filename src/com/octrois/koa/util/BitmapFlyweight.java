@@ -25,6 +25,7 @@ public class BitmapFlyweight {
 		addBitmap(res, R.drawable.settings, "settings", 48, 48);
 		addBitmap(res, R.drawable.help, "help", 48, 48);
 		addBitmap(res, R.drawable.badge, "badge", 48, 48);
+		addBitmap(res, R.drawable.game_title, "game_title", 300, 300);
 		addBitmap(res, R.drawable.music_on, "music_on", 48, 48);
 		addBitmap(res, R.drawable.music_off, "music_off", 48, 48);
 		addBitmap(res, R.drawable.sound_on, "sound_on", 48, 48);
@@ -70,7 +71,7 @@ public class BitmapFlyweight {
 		addBitmap(res, R.drawable.old_air_craft_5, "old_air_craft_5", 64, 64);
 		addBitmap(res, R.drawable.old_air_craft_6, "old_air_craft_6", 64, 64);
 
-		addBitmap(res, R.drawable.enemy_misile, "enemy_misile_1", 18, 60);
+		addBitmap(res, R.drawable.enemy_missile, "enemy_missile_1", 18, 60);
 
 		addBitmap(res, R.drawable.bigtank_1, "bigtank_1", 80, 60);
 		addBitmap(res, R.drawable.bigtank_2, "bigtank_2", 100, 60);
@@ -78,10 +79,11 @@ public class BitmapFlyweight {
 		addBitmap(res, R.drawable.bigtank_4, "bigtank_4", 80, 60);
 		addBitmap(res, R.drawable.bigtank_5, "bigtank_5", 260, 60);
 
-		addBitmap(res, R.drawable.enemy_misile, "enemy_misile", 15, 40);
-		addBitmap(res, R.drawable.misile_bullet, "misile_bullet", 15, 40);
+		addBitmap(res, R.drawable.enemy_missile, "enemy_missile", 15, 40);
+		addBitmap(res, R.drawable.missile_bullet, "missile_bullet", 15, 40);
+		addBitmap(res, R.drawable.small_missile, "small_missile", 15, 40);
 
-		addBitmap(res, R.drawable.super_misile, "super_misile", 30, 150);
+		addBitmap(res, R.drawable.super_missile, "super_missile", 30, 150);
 		addBitmap(res, R.drawable.atom_bomb_1, "atom_bomb_1", 10, 10);
 		addBitmap(res, R.drawable.atom_bomb_2, "atom_bomb_2", 50, 50);
 		addBitmap(res, R.drawable.atom_bomb_3, "atom_bomb_3", 90, 90);
@@ -104,12 +106,12 @@ public class BitmapFlyweight {
 				15);
 		addBitmap(res, R.drawable.small_gold_coin, "small_gold_coin", 15, 15);
 
-		addBitmap(res, R.drawable.super_misile_1, "super_misile_1", 56, 56);
-		addBitmap(res, R.drawable.super_misile_2, "super_misile_2", 56, 56);
-		addBitmap(res, R.drawable.super_misile_3, "super_misile_3", 56, 56);
-		addBitmap(res, R.drawable.super_misile_4, "super_misile_4", 56, 56);
-		addBitmap(res, R.drawable.super_misile_5, "super_misile_5", 56, 56);
-		addBitmap(res, R.drawable.super_misile_6, "super_misile_6", 56, 56);
+		addBitmap(res, R.drawable.super_missile_1, "super_missile_1", 56, 56);
+		addBitmap(res, R.drawable.super_missile_2, "super_missile_2", 56, 56);
+		addBitmap(res, R.drawable.super_missile_3, "super_missile_3", 56, 56);
+		addBitmap(res, R.drawable.super_missile_4, "super_missile_4", 56, 56);
+		addBitmap(res, R.drawable.super_missile_5, "super_missile_5", 56, 56);
+		addBitmap(res, R.drawable.super_missile_6, "super_missile_6", 56, 56);
 		addBitmap(res, R.drawable.atom_bomb, "atom_bomb", 56, 56);
 
 		addBitmap(res, R.drawable.fire_ball, "fire_ball", 16, 16);
@@ -175,12 +177,6 @@ public class BitmapFlyweight {
 		bitmaps.put(key, bitmap);
 	}
 
-	/**
-	 * Note that this method does not check if the key is not exist
-	 * 
-	 * @param key
-	 * @return
-	 */
 	public Bitmap getBitmap(String key) {
 		return bitmaps.get(key);
 	}

@@ -4,7 +4,7 @@ public class StateFlyweight {
 
 	public static MenuPanel MENU_PANEL = new MenuPanel();
 
-	public static Achievement ARCHIEVEMENT = new Achievement();
+	public static Achievement ACHIEVEMENT = new Achievement();
 
 	public static MainScreen MAIN_SCREEN = new MainScreen();
 

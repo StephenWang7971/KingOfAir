@@ -2,16 +2,16 @@ package com.octrois.koa.model.box;
 
 import com.octrois.koa.model.Game;
 import com.octrois.koa.model.coin.Coin;
-import com.octrois.koa.model.coin.MisileCoin;
+import com.octrois.koa.model.coin.MissileCoin;
 
 public class MissileBox extends Box {
 
 	public MissileBox() {
 		width = 60;
 		height = 40;
-		picKey = "misile_box";
+		picKey = "missile_box";
 		coins = new Coin[1];
-		coins[0] = new MisileCoin();
+		coins[0] = new MissileCoin();
 	}
 
 	@Override

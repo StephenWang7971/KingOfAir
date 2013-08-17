@@ -23,7 +23,7 @@ public abstract class Coin {
 	public static final int SILVER = 2;
 	public static final int HEALTH = 3;
 	public static final int B52 = 4;
-	public static final int MISILE = 5;
+	public static final int MISSILE = 5;
 
 	public void move(Direction dir) {
 		Game game = Game.getInstance();

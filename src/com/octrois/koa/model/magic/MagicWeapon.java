@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 
 import com.octrois.koa.model.Game;
 import com.octrois.koa.model.bullet.Bullet;
+import com.octrois.koa.model.direction.Direction;
 import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.util.BitmapFlyweight;
 import com.octrois.koa.util.MathUtil;
@@ -17,7 +18,8 @@ public class MagicWeapon extends Bullet {
 		canvas.drawBitmap(bmp, x, getTop(), null);
 	}
 
-	public void move() {
+	@Override
+	public void move(Direction dir) {
 		Game game = Game.getInstance();
 		x += dir.getDiffX();
 		y += dir.getDiffY();
@@ -25,7 +27,7 @@ public class MagicWeapon extends Bullet {
 		detectAttack();
 
 		if (!MathUtil.isConflicted(getRect(), game.getBackgroundRect())) {
-			game.sendEvent(new GameEvent(GameEvent.REMOVE_SUPER_MISILE, this));
+			game.sendEvent(new GameEvent(GameEvent.REMOVE_SUPER_MISSILE, this));
 		}
 	}
 

@@ -45,7 +45,7 @@ public class Carrier extends Role {
 			case EXPLODING_3:
 				key = "explosion_3";
 				break;
-			case EXPLOING_4:
+			case EXPLODING_4:
 				key = "explosion_4";
 				break;
 			}

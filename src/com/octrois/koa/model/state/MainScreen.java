@@ -12,22 +12,23 @@ import com.octrois.koa.model.bullet.Bullet;
 import com.octrois.koa.model.direction.Direction;
 import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.model.role.enemy.Enemy;
+import com.octrois.koa.model.role.enemy.MediumTank;
 import com.octrois.koa.model.role.friend.Hero;
 import com.octrois.koa.util.BitmapFlyweight;
 import com.octrois.koa.util.MathUtil;
 
 public class MainScreen implements Game.State {
 
+	RectF titleRect = new RectF(90, 180, 390, 380);
 	RectF backgroundRect = new RectF(0, 0, 480, 800);
 	RectF musicRect = new RectF(300, 20, 350, 70);
 	RectF soundRect = new RectF(380, 20, 430, 70);
 	RectF settingRect = new RectF(100, 20, 150, 70);
-	RectF startRect = new RectF(120, 300, 340, 400);
+	RectF startRect = new RectF(120, 400, 340, 500);
 	RectF continueRect = new RectF(120, 450, 340, 550);
 	RectF achieveRect = new RectF(400, 700, 450, 750);
 	RectF shopRect = new RectF(100, 700, 380, 750);
 	RectF helpRect = new RectF(30, 20, 80, 70);
-	// TODO provide a continue button.
 
 	private long lastFire = 0;
 	private Direction dir = Direction.EAST;
@@ -42,19 +43,21 @@ public class MainScreen implements Game.State {
 		startRect.right = startRect.left + 220;
 
 		game.hero.x = game.mCanvasWidth - 200;
-		game.hero.y = game.mCanvasHeight - 300; // TODO screen size.
+		game.hero.y = game.mCanvasHeight - 100; // TODO screen size.
 
 		int count = (game.mCanvasWidth - 40) / 80;
 
 		// FIXME cause a bug if in playing mode when return again (tanks are
 		// appended).
-		// game.enemies.clear();
-		// for (int i = 0; i < count; i++) {
-		// MediumTank tank = new MediumTank();
-		// tank.x = 80 * i + 20;
-		// tank.y = 130;
-		// game.enemies.add(tank);
-		// }
+		if (game.isMainMenu()) {
+			game.enemies.clear();
+			for (int i = 0; i < count; i++) {
+				MediumTank tank = new MediumTank();
+				tank.x = 80 * i + 20;
+				tank.y = 130;
+				game.enemies.add(tank);
+			}
+		}
 	}
 
 	@Override
@@ -84,14 +87,12 @@ public class MainScreen implements Game.State {
 			canvas.drawBitmap(musicOff, musicRect.left, musicRect.top, null);
 		}
 
-		if (game.soundOn) {
-			Bitmap soundOn = bf.getBitmap("sound_on");
-			canvas.drawBitmap(soundOn, soundRect.left, soundRect.top, null);
-		} else {
-			Bitmap soundOff = bf.getBitmap("sound_off");
-			canvas.drawBitmap(soundOff, soundRect.left, soundRect.top, null);
-		}
-
+		/*
+		 * if (game.soundOn) { Bitmap soundOn = bf.getBitmap("sound_on");
+		 * canvas.drawBitmap(soundOn, soundRect.left, soundRect.top, null); }
+		 * else { Bitmap soundOff = bf.getBitmap("sound_off");
+		 * canvas.drawBitmap(soundOff, soundRect.left, soundRect.top, null); }
+		 */
 		// TODO show the name of 'King of Air'
 
 		// Bitmap settings = bf.getBitmap("settings");
@@ -126,6 +127,9 @@ public class MainScreen implements Game.State {
 		}
 
 		game.hero.render(canvas);
+
+		Bitmap title = bf.getBitmap("game_title");
+		canvas.drawBitmap(title, titleRect.left, titleRect.top, null);
 
 	}
 
@@ -192,6 +196,7 @@ public class MainScreen implements Game.State {
 	public void onGameEvent(GameEvent event) {
 		Game game = Game.getInstance();
 		Enemy enemy;
+		Bullet bullet;
 		switch (event.eventCode) {
 		case GameEvent.ADD_BULLET:
 			game.bullets.add((Bullet) event.param[0]);
@@ -209,12 +214,16 @@ public class MainScreen implements Game.State {
 			game.clear();
 			game.play();
 			break;
+		case GameEvent.EXPLODE_BULLET:
+			bullet = (Bullet) event.param[0];
+			bullet.explode();
+			break;
 		case GameEvent.REMOVE_BULLET:
 			game.bullets.remove((Bullet) event.param[0]);
 			break;
 		case GameEvent.ATTACK_ENEMY:
 			enemy = (Enemy) event.param[0];
-			Bullet bullet = (Bullet) event.param[1];
+			bullet = (Bullet) event.param[1];
 
 			game.beforeExplode(bullet);
 

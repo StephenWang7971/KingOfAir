@@ -22,11 +22,11 @@ public class Hero extends Role {
 		x = game.mCanvasWidth - 100;
 		y = game.mCanvasHeight - 150;
 		weaponSpeed = 1500;
-		health = 3000;
+		health = 100;
 		power = 30;
 		width = 64;
 		height = 64; // TODO According to screen size.
-		maxHealth = 3000;
+		maxHealth = 100;
 	}
 
 	@Override

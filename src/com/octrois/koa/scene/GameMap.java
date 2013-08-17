@@ -24,8 +24,7 @@ public class GameMap {
 
 	protected float getTop() {
 		Game game = Game.getInstance();
-		int top = y - game.scene.top;
-		return top;
+		return y - game.scene.top;
 	}
 
 	public void move(Direction dir) {

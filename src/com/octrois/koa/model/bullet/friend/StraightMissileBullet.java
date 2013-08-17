@@ -13,7 +13,7 @@ public class StraightMissileBullet extends Bullet {
 		y = role.y + height;
 		friend = true;
 		power = role.power;
-		picKey = "small_misile";
+		picKey = "small_missile";
 
 		route.add(3, 0, 5);
 		route.add(50, 0, -15);

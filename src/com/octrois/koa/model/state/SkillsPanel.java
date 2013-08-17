@@ -52,9 +52,9 @@ public class SkillsPanel implements Game.State {
 		Paint valuePaint = new Paint();
 		valuePaint.setARGB(255, 255, 0, 0);
 
-		Paint vacansPaint = new Paint();
-		vacansPaint.setStyle(Style.STROKE);
-		vacansPaint.setARGB(255, 255, 0, 0);
+		Paint vacancePaint = new Paint();
+		vacancePaint.setStyle(Style.STROKE);
+		vacancePaint.setARGB(255, 255, 0, 0);
 
 		Paint textPaint = new Paint();
 		textPaint.setTextSize(22);
@@ -76,9 +76,9 @@ public class SkillsPanel implements Game.State {
 		canvas.drawText("Speed", speedRect.left, speedRect.top, textPaint);
 		canvas.drawText("Life", healthRect.left, healthRect.top, textPaint);
 
-		canvas.drawRect(powerBarRect, vacansPaint);
-		canvas.drawRect(speedBarRect, vacansPaint);
-		canvas.drawRect(healthBarRect, vacansPaint);
+		canvas.drawRect(powerBarRect, vacancePaint);
+		canvas.drawRect(speedBarRect, vacancePaint);
+		canvas.drawRect(healthBarRect, vacancePaint);
 
 		// XXX count the value.
 		canvas.drawRect(powerBarRect, valuePaint);

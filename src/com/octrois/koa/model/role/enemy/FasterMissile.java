@@ -8,7 +8,7 @@ public class FasterMissile extends Enemy {
 		weaponSpeed = -5;
 		width = 18;
 		height = 60;
-		picKey = "enemy_misile_";
+		picKey = "enemy_missile_";
 		maxGesture = 1;
 	}
 }

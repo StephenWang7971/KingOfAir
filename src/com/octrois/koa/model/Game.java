@@ -18,11 +18,12 @@ import com.octrois.koa.model.coin.Coin;
 import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.model.magic.AtomBomb;
 import com.octrois.koa.model.magic.MagicWeapon;
-import com.octrois.koa.model.magic.SuperMisile;
+import com.octrois.koa.model.magic.SuperMissile;
 import com.octrois.koa.model.role.boss.Boss;
 import com.octrois.koa.model.role.enemy.Enemy;
 import com.octrois.koa.model.role.friend.Friend;
 import com.octrois.koa.model.role.friend.Hero;
+import com.octrois.koa.model.role.friend.SmallMissile;
 import com.octrois.koa.model.state.Playing;
 import com.octrois.koa.model.state.StateFlyweight;
 import com.octrois.koa.scene.Scene;
@@ -43,7 +44,7 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	public Score score = new Score();
 	public Scene scene;
 
-	public boolean preLoaded = false;
+	private boolean preLoaded = false;
 	public boolean loaded = false;
 
 	private JetPlayer mJet;
@@ -59,10 +60,14 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 	public boolean musicOn = false;
 	public Boss boss;
 	private boolean visible = true;
+	private boolean magicOnRoad;
+	private int atomCount;
+	private int superMissileCount;
 	private static Game instance = null;
 
 	private Game() {
-
+		atomCount = 3;
+		superMissileCount = 3;
 	}
 
 	public static Game getInstance() {
@@ -147,16 +152,23 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 		((Playing) state).clear();
 		state.fadeIn();
 		scene = new Scene();
-		// scene.top = scene.height - mCanvasHeight;
-		scene.top = 1800;
+		scene.top = scene.height - mCanvasHeight;
 		hero = new Hero();
+		Friend smallMissileLeft = new SmallMissile();
+		Friend smallMissileRight = new SmallMissile();
+		friends.add(smallMissileLeft);
+		friends.add(smallMissileRight);
+		adjustFriends();
+	}
+
+	private void adjustFriends() {
+		friends.get(0).keepAround(hero, -20, 10);
+		friends.get(1).keepAround(hero, 69, 10);
 	}
 
 	public void worldEvent() {
 
 		long tick = System.currentTimeMillis();
-
-		tick = System.currentTimeMillis();
 
 		processPreGameEvent();
 		state.worldEvent();
@@ -320,28 +332,34 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 		}
 	}
 
-	public void launchSuperMisile() {
-		magicWeapons.add(new SuperMisile(10, getBottom()));
-		magicWeapons.add(new SuperMisile(90, getBottom()));
-		magicWeapons.add(new SuperMisile(170, getBottom()));
-		magicWeapons.add(new SuperMisile(250, getBottom()));
-		magicWeapons.add(new SuperMisile(330, getBottom()));
-		magicWeapons.add(new SuperMisile(410, getBottom()));
+	public void launchSuperMissile() {
+		magicOnRoad = true;
+		superMissileCount--;
+		magicWeapons.add(new SuperMissile(10, getBottom()));
+		magicWeapons.add(new SuperMissile(90, getBottom()));
+		magicWeapons.add(new SuperMissile(170, getBottom()));
+		magicWeapons.add(new SuperMissile(250, getBottom()));
+		magicWeapons.add(new SuperMissile(330, getBottom()));
+		magicWeapons.add(new SuperMissile(410, getBottom()));
 	}
 
 	private int getBottom() {
 		return mCanvasHeight;
 	}
 
-	public void removeSuperMisile(SuperMisile misile) {
-		magicWeapons.remove(misile);
+	public void removeSuperMissile(SuperMissile missile) {
+		magicOnRoad = false;
+		magicWeapons.remove(missile);
 	}
 
 	public void launchAtom() {
+		magicOnRoad = true;
+		atomCount--;
 		magicWeapons.add(new AtomBomb(240, 300));
 	}
 
 	public void removeAtom(AtomBomb atom) {
+		magicOnRoad = false;
 		magicWeapons.remove(atom);
 	}
 
@@ -366,4 +384,20 @@ public class Game implements View.OnTouchListener, OnJetEventListener {
 		return visible;
 	}
 
+	public boolean isMagicOnRoad() {
+		return magicOnRoad;
+	}
+
+	public boolean hasMoreMissile() {
+		return superMissileCount > 0;
+	}
+
+	public boolean hasMoreAtom() {
+		// TODO Auto-generated method stub
+		return atomCount > 0;
+	}
+
+	public boolean isMainMenu() {
+		return state.equals(StateFlyweight.MAIN_SCREEN);
+	}
 }

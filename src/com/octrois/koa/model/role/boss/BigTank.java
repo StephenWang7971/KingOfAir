@@ -21,7 +21,7 @@ public class BigTank extends Boss {
 		top.weapon.setOwner(top);
 		top.width = 80;
 		top.height = 60;
-		top.x = 240;
+		top.x = 250;
 		top.y = -240;
 		top.picKey = "bigtank_1";
 		top.attackable = true;
@@ -67,7 +67,7 @@ public class BigTank extends Boss {
 		tier.weaponSpeed = 200;
 		tier.weapon = new FireBallWeapon();
 		tier.width = 300;
-		tier.height = 60;
+		tier.height = 80;
 		tier.x = 120;
 		tier.y = -120;
 		tier.picKey = "bigtank_5";

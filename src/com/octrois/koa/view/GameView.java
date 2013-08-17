@@ -23,7 +23,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		thread.setSurfaceSize(width, height);
-		StateFlyweight.ARCHIEVEMENT.update();
+		StateFlyweight.ACHIEVEMENT.update();
 		StateFlyweight.HELP_PANEL.update();
 		StateFlyweight.MAIN_SCREEN.update();
 		StateFlyweight.PLAYING.update();
@@ -107,6 +107,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		private void doDraw(Canvas canvas) {
 			Game.getInstance().render(canvas);
 		}
-	};
+	}
 
 }

@@ -13,7 +13,7 @@ public class MissileBullet extends Bullet {
 		state = NORMAL;
 		friend = false;
 		power = role.power;
-		picKey = "misile_bullet";
+		picKey = "missile_bullet";
 		route.add(200, 0, 15);
 	}
 

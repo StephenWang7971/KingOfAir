@@ -36,11 +36,11 @@ public class GameEvent {
 	public static final int ADD_COIN = 0x0041;
 	public static final int REMOVE_COIN = 0x0042;
 
-	public static final int LAUNCH_MISILE = 0x0050;
+	public static final int LAUNCH_MISSILE = 0x0050;
 	public static final int LAUNCH_B52 = 0x0051;
 	public static final int LAUNCH_ATOM = 0x0052;
 	public static final int LAUNCH_THUNDER_STORM = 0x0053;
-	public static final int REMOVE_SUPER_MISILE = 0x0054;
+	public static final int REMOVE_SUPER_MISSILE = 0x0054;
 	public static final int REMOVE_ATOM = 0x0055;
 	public static final int REMOVE_B52 = 0x0056;
 	public static final int REMOVE_THUNDER_STORM = 0x0057;

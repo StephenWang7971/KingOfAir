@@ -7,7 +7,7 @@ public class MonsterFactory {
 		if (color.equalsIgnoreCase("Gray")) {
 			return new Asteroid();
 		} else if (color.equalsIgnoreCase("Green")) {
-			return new FasterMisile();
+			return new FasterMissile();
 		} else if (color.equalsIgnoreCase("Blue")) {
 			return new WeirdBird();
 		} else if (color.equalsIgnoreCase("Red")) {

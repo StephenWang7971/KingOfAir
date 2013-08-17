@@ -1,6 +1,6 @@
 package com.octrois.koa.model.role.enemy;
 
-import com.octrois.koa.model.weapon.enemy.MisileWeapon;
+import com.octrois.koa.model.weapon.enemy.MissileWeapon;
 
 public class OldAirCraft extends Enemy {
 
@@ -10,7 +10,7 @@ public class OldAirCraft extends Enemy {
 		weaponSpeed = -14;
 		width = 64;
 		height = 64;
-		weapon = new MisileWeapon();
+		weapon = new MissileWeapon();
 		weapon.setOwner(this);
 		picKey = "old_air_craft_";
 		maxGesture = 6;

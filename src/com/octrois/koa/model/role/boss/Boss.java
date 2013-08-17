@@ -44,6 +44,10 @@ public abstract class Boss extends Role {
 
 	}
 
+	public void evolute() {
+
+	}
+
 	public boolean hasForce() {
 		for (Carrier c : carriers) {
 			if (c.isLiving() && c.attackable) {

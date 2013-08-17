@@ -8,6 +8,7 @@ import com.octrois.koa.model.Movable;
 import com.octrois.koa.model.box.Box;
 import com.octrois.koa.model.direction.Direction;
 import com.octrois.koa.model.event.GameEvent;
+import com.octrois.koa.model.path.GamePath;
 import com.octrois.koa.model.role.boss.Carrier;
 import com.octrois.koa.model.role.enemy.Enemy;
 import com.octrois.koa.model.role.friend.Friend;
@@ -18,12 +19,13 @@ public abstract class Bullet implements Movable {
 
 	public int x, y;
 	public boolean friend;
-	public Direction dir;
 	public int power;
 	public int width;
 	public int height;
 
 	protected String picKey;
+
+	public GamePath route = new GamePath();
 
 	protected int state;
 	protected static final int NORMAL = 0;
@@ -40,7 +42,7 @@ public abstract class Bullet implements Movable {
 		x += dir.getDiffX();
 		y += dir.getDiffY();
 
-		if (isExplosing()) {
+		if (isExploding()) {
 			state++;
 			return;
 		}
@@ -53,13 +55,14 @@ public abstract class Bullet implements Movable {
 
 		detectAttack();
 
+		// FIXME allow bigger screen.
 		if (!MathUtil.inside(x, getTop(), game.getBackgroundRect())) {
 			Game.getInstance().sendEvent(
 					new GameEvent(GameEvent.REMOVE_BULLET, this));
 		}
 	}
 
-	private boolean isExplosing() {
+	private boolean isExploding() {
 		return state > NORMAL && state < VANISHED;
 	}
 
@@ -67,6 +70,7 @@ public abstract class Bullet implements Movable {
 		return state == VANISHED;
 	}
 
+	// FIXME reduce complexity
 	protected void detectAttack() {
 		Game game = Game.getInstance();
 		if (friend) {
@@ -124,7 +128,7 @@ public abstract class Bullet implements Movable {
 			return;
 		}
 		BitmapFlyweight bf = BitmapFlyweight.getInstance();
-		if (!isExplosing()) {
+		if (!isExploding()) {
 			canvas.drawBitmap(bf.getBitmap(picKey), x, getTop(), null);
 		} else {
 			canvas.drawBitmap(bf.getBitmap(picKey), x, getTop(), null);

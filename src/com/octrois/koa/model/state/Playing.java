@@ -14,7 +14,7 @@ import com.octrois.koa.model.direction.Direction;
 import com.octrois.koa.model.event.GameEvent;
 import com.octrois.koa.model.magic.AtomBomb;
 import com.octrois.koa.model.magic.MagicWeapon;
-import com.octrois.koa.model.magic.SuperMisile;
+import com.octrois.koa.model.magic.SuperMissile;
 import com.octrois.koa.model.role.boss.Carrier;
 import com.octrois.koa.model.role.enemy.Enemy;
 import com.octrois.koa.model.role.friend.Friend;
@@ -34,10 +34,10 @@ public class Playing implements Game.State {
 	private RectF leftDownRect = new RectF(0, 700, 50, 750);
 	private RectF rightDownRect = new RectF(100, 700, 150, 750);
 
-	private RectF misileRect = new RectF(400, 360, 480, 420);
+	private RectF missileRect = new RectF(400, 360, 480, 420);
 	private RectF atomRect = new RectF(400, 480, 480, 540);
 	// TODO player could buy more magic boxes up to 4.
-	// TODO player could launch other magic, B52, Thunderstom
+	// TODO player could launch other magic, B52, Thunderstorm
 
 	private boolean leftPressed;
 	private boolean rightPressed;
@@ -66,14 +66,14 @@ public class Playing implements Game.State {
 		menuRect.right = menuRect.left + 50;
 		menuRect.bottom = menuRect.top + 50;
 
-		misileRect.left = game.mCanvasWidth - 80;
-		misileRect.right = misileRect.left + 80;
-		misileRect.top = game.mCanvasHeight - 300;
-		misileRect.bottom = misileRect.top + 60;
+		missileRect.left = game.mCanvasWidth - 80;
+		missileRect.right = missileRect.left + 80;
+		missileRect.top = game.mCanvasHeight - 300;
+		missileRect.bottom = missileRect.top + 60;
 
-		atomRect.left = misileRect.left;
-		atomRect.right = misileRect.right;
-		atomRect.top = misileRect.top + 100;
+		atomRect.left = missileRect.left;
+		atomRect.right = missileRect.right;
+		atomRect.top = missileRect.top + 100;
 		atomRect.bottom = atomRect.top + 60;
 
 		leftRect.top = game.mCanvasHeight - 2 * 75;
@@ -173,7 +173,7 @@ public class Playing implements Game.State {
 
 	private void drawButtons(Canvas canvas) {
 		Paint pressed = new Paint();
-		pressed.setARGB(255, 0, 128, 0);
+		pressed.setARGB(128, 0, 128, 0);
 
 		Paint normal = new Paint();
 		normal.setARGB(128, 0, 255, 0);
@@ -222,15 +222,15 @@ public class Playing implements Game.State {
 	private void drawMagicBoxes(Canvas canvas) {
 		BitmapFlyweight bf = BitmapFlyweight.getInstance();
 		Bitmap magicBox = bf.getBitmap("magic_box");
-		Bitmap superMisile_1 = bf.getBitmap("super_misile_1");
-		Bitmap superMisile_2 = bf.getBitmap("super_misile_2");
-		Bitmap superMisile_3 = bf.getBitmap("super_misile_3");
-		Bitmap superMisile_4 = bf.getBitmap("super_misile_4");
-		Bitmap superMisile_5 = bf.getBitmap("super_misile_5");
-		Bitmap superMisile_6 = bf.getBitmap("super_misile_6");
+		Bitmap superMissile_1 = bf.getBitmap("super_missile_1");
+		Bitmap superMissile_2 = bf.getBitmap("super_missile_2");
+		Bitmap superMissile_3 = bf.getBitmap("super_missile_3");
+		Bitmap superMissile_4 = bf.getBitmap("super_missile_4");
+		Bitmap superMissile_5 = bf.getBitmap("super_missile_5");
+		Bitmap superMissile_6 = bf.getBitmap("super_missile_6");
 
 		Bitmap atomBomb = bf.getBitmap("atom_bomb");
-		canvas.drawBitmap(magicBox, misileRect.left, misileRect.top, null);
+		canvas.drawBitmap(magicBox, missileRect.left, missileRect.top, null);
 
 		count++;
 		if (count == 36) {
@@ -238,23 +238,23 @@ public class Playing implements Game.State {
 		}
 
 		if (count % 36 < 6) {
-			canvas.drawBitmap(superMisile_1, misileRect.left + 5,
-					misileRect.top, null);
+			canvas.drawBitmap(superMissile_1, missileRect.left + 5,
+					missileRect.top, null);
 		} else if (count % 36 < 12) {
-			canvas.drawBitmap(superMisile_2, misileRect.left + 5,
-					misileRect.top, null);
+			canvas.drawBitmap(superMissile_2, missileRect.left + 5,
+					missileRect.top, null);
 		} else if (count % 36 < 18) {
-			canvas.drawBitmap(superMisile_3, misileRect.left + 5,
-					misileRect.top, null);
+			canvas.drawBitmap(superMissile_3, missileRect.left + 5,
+					missileRect.top, null);
 		} else if (count % 36 < 24) {
-			canvas.drawBitmap(superMisile_4, misileRect.left + 5,
-					misileRect.top, null);
+			canvas.drawBitmap(superMissile_4, missileRect.left + 5,
+					missileRect.top, null);
 		} else if (count % 36 < 30) {
-			canvas.drawBitmap(superMisile_5, misileRect.left + 5,
-					misileRect.top, null);
+			canvas.drawBitmap(superMissile_5, missileRect.left + 5,
+					missileRect.top, null);
 		} else if (count % 36 < 36) {
-			canvas.drawBitmap(superMisile_6, misileRect.left + 5,
-					misileRect.top, null);
+			canvas.drawBitmap(superMissile_6, missileRect.left + 5,
+					missileRect.top, null);
 		}
 		canvas.drawBitmap(magicBox, atomRect.left, atomRect.top, null);
 		canvas.drawBitmap(atomBomb, atomRect.left + 5, atomRect.top, null);
@@ -322,9 +322,11 @@ public class Playing implements Game.State {
 			}
 			if (MathUtil.inside(event.getX(), event.getY(), menuRect)) {
 				game.sendEvent(new GameEvent(GameEvent.SHOW_MENU));
-			} else if (MathUtil.inside(event.getX(), event.getY(), misileRect)) {
-				game.sendEvent(new GameEvent(GameEvent.LAUNCH_MISILE));
-			} else if (MathUtil.inside(event.getX(), event.getY(), atomRect)) {
+			} else if (MathUtil.inside(event.getX(), event.getY(), missileRect)
+					&& !game.isMagicOnRoad() && game.hasMoreMissile()) {
+				game.sendEvent(new GameEvent(GameEvent.LAUNCH_MISSILE));
+			} else if (MathUtil.inside(event.getX(), event.getY(), atomRect)
+					&& !game.isMagicOnRoad() && game.hasMoreAtom()) {
 				game.sendEvent(new GameEvent(GameEvent.LAUNCH_ATOM));
 			}
 		}
@@ -332,17 +334,18 @@ public class Playing implements Game.State {
 
 	@Override
 	public void worldEvent() {
-		// System.out.println("world event");
 		Game game = Game.getInstance();
 		if (game.hero == null) {
 			return;
 		}
 		if (moving) {
 			game.hero.move(movingDir);
+			for (Friend friend : game.friends) {
+				friend.keepAround();
+			}
 		}
 
 		game.hero.fire();
-
 		for (Friend friend : game.friends) {
 			friend.fire();
 		}
@@ -367,7 +370,9 @@ public class Playing implements Game.State {
 		}
 
 		for (MagicWeapon weapon : game.magicWeapons) {
-			weapon.move();
+			if (weapon.route.hasNext()) {
+				weapon.move(weapon.route.next());
+			}
 		}
 
 		for (Box box : game.boxes) {
@@ -381,7 +386,9 @@ public class Playing implements Game.State {
 		game.scene.scrollUp();
 
 		for (Bullet bullet : game.bullets) {
-			bullet.move(bullet.dir);
+			if (bullet.route.hasNext()) {
+				bullet.move(bullet.route.next());
+			}
 		}
 
 		pickCoins();
@@ -403,7 +410,6 @@ public class Playing implements Game.State {
 	}
 
 	private void stopMoving() {
-		System.out.println("stopMoving");
 		movingDir = null;
 		moving = false;
 	}
@@ -528,12 +534,12 @@ public class Playing implements Game.State {
 			coin = (Coin) event.param[0];
 			game.coins.remove(coin);
 			break;
-		case GameEvent.LAUNCH_MISILE:
-			game.launchSuperMisile();
+		case GameEvent.LAUNCH_MISSILE:
+			game.launchSuperMissile();
 			break;
-		case GameEvent.REMOVE_SUPER_MISILE:
-			SuperMisile misile = (SuperMisile) event.param[0];
-			game.removeSuperMisile(misile);
+		case GameEvent.REMOVE_SUPER_MISSILE:
+			SuperMissile missile = (SuperMissile) event.param[0];
+			game.removeSuperMissile(missile);
 			break;
 		case GameEvent.LAUNCH_ATOM:
 			game.launchAtom();
@@ -553,7 +559,6 @@ public class Playing implements Game.State {
 			game.hero.forceMove = true;
 			break;
 		case GameEvent.SHOW_SCORE_PANEL:
-			System.out.println("SHOW_SCORE_PANEL");
 			moving = false;
 			movingDir = Direction.NONE;
 			game.hero.forceMove = false;

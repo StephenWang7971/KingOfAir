@@ -23,17 +23,21 @@ public class HelpPanel implements Game.State {
 	public void render(Canvas canvas) {
 		StateFlyweight.MAIN_SCREEN.render(canvas);
 
-		Paint text = new Paint();
-		text.setARGB(255, 255, 255, 255);
-		canvas.drawText("Control aircraft with arrow steer.", 105, 105, text);
-		canvas.drawText("Destroy enemies.", 105, 120, text);
-
 		BitmapFlyweight bf = BitmapFlyweight.getInstance();
 		Bitmap helpBackground = bf.getBitmap("help_background");
 		canvas.drawBitmap(helpBackground, 100, 100, null);
 		Bitmap close = bf.getBitmap("close_button");
 
 		canvas.drawBitmap(close, backRect.left, backRect.top, null);
+
+		Paint text = new Paint();
+		text.setARGB(255, 255, 255, 255);
+		text.setTextSize(20);
+		canvas.drawText("Control aircraft with", 120, 135, text);
+		canvas.drawText("arrow steer.", 120, 150, text);
+		canvas.drawText("Destroy enemies.", 120, 165, text);
+		canvas.drawText("Destroy Boss.", 120, 180, text);
+		canvas.drawText("Escape enemy's bullets!", 120, 195, text);
 	}
 
 	@Override

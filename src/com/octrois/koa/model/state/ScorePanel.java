@@ -70,7 +70,6 @@ public class ScorePanel implements Game.State {
 
 	@Override
 	public void worldEvent() {
-		System.out.println("score panel.world event");
 	}
 
 	@Override

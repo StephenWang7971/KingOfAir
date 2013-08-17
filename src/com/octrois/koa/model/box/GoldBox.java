@@ -21,7 +21,7 @@ public class GoldBox extends Box {
 	public void explode() {
 		super.explode();
 		Game game = Game.getInstance();
-		// TODO need a mehtod to make sure all are in the screen. anyway.
+		// TODO need a method to make sure all are in the screen. anyway.
 		coins[0].x = this.x - 70;
 		coins[0].y = this.y + 60;
 		coins[1].x = this.x;
